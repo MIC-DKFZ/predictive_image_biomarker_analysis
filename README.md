@@ -22,6 +22,7 @@ This repository contains the code of the paper [*"Enhancing predictive imaging b
 - [⚡Training](#⚡training)
 - [📊Evaluation](#📊evaluation)
 - [📑Citation](#📑citation)
+- [Acknowledgements](#acknowledgements)
 
 
 ## Installation
@@ -126,3 +127,7 @@ If you use this code, please cite our paper:
 }
 ```
 This paper has been accepted to WACV 2025 (IEEE/CVF Winter Conference on Applications of Computer Vision). Once officially published, please refer to the final version for an updated citation.
+
+## Acknowledgements 
+
+This library is developed and maintained by the [Division of Medical Image Computing (MIC)](https://www.dkfz.de/en/mic/index.php) at the German Cancer Research Center (DKFZ), in collaboration with the [Interactive Machine Learning Group](https://iml-dkfz.github.io/) of [Helmholtz Imaging](https://www.helmholtz-imaging.de/) and the DKFZ.

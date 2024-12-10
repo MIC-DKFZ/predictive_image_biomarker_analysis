@@ -1,0 +1,37 @@
+name: predimgbmenv
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - numpy
+  - jupyterlab
+  - matplotlib
+  - scikit-image
+  - scikit-learn
+  - scipy
+  - pillow
+  - pytorch-lightning
+  - opencv
+  - tensorboard
+  - visdom
+  - ipywidgets
+  - statsmodels
+  - jupyter-dash
+  - cudatoolkit==11.3.1
+  - torchvision
+  - cudnn
+  - captum
+  - tqdm
+  - rich
+  - pydicom
+  - simpleitk
+  - pyradiomics
+  - monai
+  - hydra-core
+  - pandas
+  - grad-cam
+  - binsreg
+  - grad_cam
+
+
+

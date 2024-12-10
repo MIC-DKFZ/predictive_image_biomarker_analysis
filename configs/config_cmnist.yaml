@@ -1,0 +1,77 @@
+pl_params:
+  model_type: "miniresnetmtl" # ["miniresnet","resnet18"] + ["", "mtl"]
+  mode: "mtl_loss" # mtl_loss, standard
+  model_params:
+    activation: ReLU
+    final_activation: null
+    in_channels: 3
+    img_size: 28
+  loader_params:
+    batch_size: 1000
+    num_workers: 1
+    pin_memory: true
+  val_loader_params:
+    batch_size: 1000
+  data_type: "colored_mnist"
+  data_params:
+    b: null 
+    #  - 0.0
+    #  - 0.0
+    #  - 1.0
+    #  - 1.0
+    b_prog: 1.0
+    b_pred: 1.0
+    input_type: "binomial"
+    data_model_type: "simple" # {"simple", "threshold", full"}
+    data_fun_name: "linear" # "logistic" or "linear" or "threshold"
+    use_cuda: True
+    normalise_value:
+      - 0.13070
+      - 0.3081  
+    prog_feature: "b_col"
+    pred_feature: "b_digitcircle"
+    save_num_data_dir: null
+    img_size: 28
+    #pad_transform: 2
+    #pad_data: [[0,0],[2,2],[2,2]]
+    root: "${env:DATASET_LOCATION}/mnist"
+    save_num_data_dir: null
+
+  use_cuda: True
+
+  optimizer: "SGD"
+  optimizer_params:
+    lr: 1e-3
+    weight_decay: 0.0 
+  
+trainer_params:
+  max_epochs: 400
+  accelerator: 'gpu'
+  devices: 1
+  check_val_every_n_epoch: 200
+  log_every_n_steps: 1000
+  
+log_saliency_every_n_batch: null
+save_num_data: true
+
+experiment_location: "${env:EXPERIMENT_LOCATION}"
+
+
+hydra:
+  job:
+    name: job
+  run:
+    dir: "${experiment_location}/${now:%Y-%m-%d}_${hydra.job.name}/\
+    ${now:%H-%M-%S}_bpred=${pl_params.data_params.b_pred}_bprog=${pl_params.data_params.b_prog}\
+    _finalact=${pl_params.model_params.final_activation}"
+  sweep:
+    dir: "${experiment_location}/${now:%Y-%m-%d}_${hydra.job.name}"
+    subdir: "${now:%Y-%m-%d_%H-%M-%S}_${hydra.job.num}_bpred=${pl_params.data_params.b_pred}_bprog=${pl_params.data_params.b_prog}\
+    _finalact=${pl_params.model_params.final_activation}"
+    
+#defaults:
+#  - /pl_params/data_params: coloredmnist_params
+#  - _self_ 
+
+
+

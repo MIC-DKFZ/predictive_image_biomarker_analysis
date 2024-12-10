@@ -1,0 +1,84 @@
+module: null
+pl_params:
+  model_type: "resnet3d18mtl4fc" # ["resnet3d"] + ["", "mtl"]
+  mode: "mtl_loss" # mtl_loss, standard
+  model_params:
+    activation: ReLU
+    final_activation: null
+    in_channels: 1
+  loader_params:
+    batch_size: 8
+    num_workers: 5
+    pin_memory: true
+    persistent_workers: true
+  val_loader_params:
+    batch_size: 8
+  data_type: "nsclcradiomics"
+  criterion: "MSELoss"
+  data_params:
+    b: null 
+    #  - 0.0
+    #  - 0.0
+    #  - 1.0
+    #  - 1.0
+    b_prog: 0.1 
+    b_pred: 0.1
+    input_type: "uniform" 
+    data_model_type: "simple" # {"simple", "threshold", full"}
+    data_fun_name: "linear" #"logistic" or "linear" or "threshold"
+    use_cuda: True 
+    pred_feature: "Energy_zscoretr"
+    prog_feature: "Flatness_zscoretr"
+
+    root: "${env:DATASET_LOCATION}/NSCLC_Radiomics"
+    save_num_data_dir: null
+    transform: "randomspatialpad_transform_CT"
+    transform_kwargs:
+      patch_size:
+       - 54
+       - 162
+       - 162
+    preprocessed_folder_name: "preprocessed_tumourbbox_patches_nnunetresample"
+    augmentation_framework: "monai"
+    treatidx_env_mapping:
+      0: "CGtraincv"
+      1: "EGtraincv"
+    no_validation: true
+    
+  use_cuda: True
+
+  optimizer: "SGD"
+  optimizer_params:
+    lr: 1e-3
+    weight_decay: 0.0 #[0.,0.01,0.1,0.5]
+    
+  k_fold_splits: null
+  fold_idx: null
+  
+trainer_params:
+  max_epochs: 2000 
+  accelerator: 'gpu'
+  devices: 1
+  check_val_every_n_epoch: 100 #200
+  log_every_n_steps: 500
+  
+log_saliency_every_n_batch: -1 
+save_num_data: true
+
+experiment_location: "${env:EXPERIMENT_LOCATION}"
+
+hydra:
+  job:
+    name: job
+  run:
+    dir: "${experiment_location}/experiments/${now:%Y-%m-%d}_${hydra.job.name}/\
+    ${now:%H-%M-%S}_bpred=${pl_params.data_params.b_pred}_bprog=${pl_params.data_params.b_prog}\
+    _finalact=${pl_params.model_params.final_activation}_kfold_idx=${pl_params.fold_idx}"
+  sweep:
+    dir: "${experiment_location}/experiments/${now:%Y-%m-%d}_${hydra.job.name}"
+    subdir: "${now:%Y-%m-%d_%H-%M-%S}_${hydra.job.num}_bpred=${pl_params.data_params.b_pred}_bprog=${pl_params.data_params.b_prog}\
+    _finalact=${pl_params.model_params.final_activation}_kfold_idx=${pl_params.fold_idx}"
+    
+
+
+

@@ -116,17 +116,17 @@ To evaluate the trained CATE estimation models for their performance in discover
 ## 📑Citation
 
 If you use this code, please cite our paper: 
-
 ```
-@article{xiao2024enhancing,
-  title={Enhancing predictive imaging biomarker discovery through treatment effect analysis},
-  author={Xiao, Shuhan and Klein, Lukas and Petersen, Jens and Vollmuth, Philipp and Jaeger, Paul F and Maier-Hein, Klaus H},
-  journal={arXiv preprint arXiv:2406.02534v2},
-  year={2024}
-  url={https://arxiv.org/abs/2406.02534v2}
+@InProceedings{Xiao_2025_WACV,
+    author    = {Xiao, Shuhan and Klein, Lukas and Petersen, Jens and Vollmuth, Philipp and Jaeger, Paul F. and Maier-Hein, Klaus H.},
+    title     = {Enhancing Predictive Imaging Biomarker Discovery through Treatment Effect Analysis},
+    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {February},
+    year      = {2025},
+    pages     = {4512-4522}
 }
 ```
-This paper has been accepted to WACV 2025 (IEEE/CVF Winter Conference on Applications of Computer Vision). Once officially published, please refer to the final version for an updated citation.
+This paper has been accepted to WACV 2025 (IEEE/CVF Winter Conference on Applications of Computer Vision).
 
 ## Acknowledgements 
 
